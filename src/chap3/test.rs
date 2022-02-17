@@ -22,6 +22,7 @@ mod tests {
         println!("x is : {}", x);
         println!("num is :{}", num);
 
+
         let wrap = Wrapping(200u8);
         let wrap2 = Wrapping(56u8);
         println!("warp is : {}", (wrap + wrap2).0);
@@ -38,7 +39,7 @@ mod tests {
 
     #[test]
     fn tuple() {
-        let tuple = (100, 200.0, 3.4);
+        let tuple = (100, 200.0, "123");
         let (x, y, z) = tuple;
         assert_eq!(x, tuple.0);
         assert_eq!(y, tuple.1);
@@ -52,10 +53,19 @@ mod tests {
         assert_eq!(1, array[0]);
         assert_eq!(3, array[2]);
 
+
         let array = [3; 3];
         assert_eq!(3, array[1]);
 
+        let index1 = 2;
+        assert_eq!(3, array[index1]);
+
         array[index()];
+    }
+
+    #[test]
+    fn fn_test() {
+        println!("{}", foo());
     }
 
     #[test]
@@ -95,6 +105,25 @@ mod tests {
         for number in (1..5).rev() {
             println!("{}", number);
         }
+    }
+
+    #[test]
+    fn address_test() {
+        let mut value = 5;
+        let address = &mut value as *mut i32;
+        let update_before = unsafe {
+            *address
+        };
+        println!("value: {}, *address: {}, address: {:?}", value, update_before, address);
+
+        unsafe {
+            *address = 100;
+        }
+        let update_after = unsafe {
+            *address
+        };
+
+        println!("value: {}, *address: {}, address: {:?}", value, update_after, address);
     }
 
     fn index() -> usize {
